@@ -55,5 +55,5 @@ EXPOSE 4000
 # Set production environment
 ENV NODE_ENV=production
 
-# Start script: Run migrations then start the server
-CMD ["sh", "-c", "npx prisma migrate deploy --schema=./apps/api/prisma/schema.prisma && node apps/api/dist/apps/api/src/scripts/seed-admin.js || true && node apps/api/dist/apps/api/src/main.js"]
+# Start script: Resolve any failed migrations, deploy migrations, seed, then start the server
+CMD ["sh", "-c", "npx prisma migrate resolve --rolled-back 20260715210500_sync_schema || true && npx prisma migrate deploy --schema=./apps/api/prisma/schema.prisma && node apps/api/dist/apps/api/src/scripts/seed-admin.js || true && node apps/api/dist/apps/api/src/main.js"]
