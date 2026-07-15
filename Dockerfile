@@ -36,6 +36,7 @@ COPY apps/api/package*.json ./apps/api/
 
 # Install only production dependencies
 RUN npm install --omit=dev
+RUN npm install -g prisma
 
 # Copy the built shared library
 COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
@@ -44,6 +45,7 @@ COPY --from=builder /app/packages/shared/dist ./packages/shared/dist
 COPY --from=builder /app/apps/api/dist ./apps/api/dist
 COPY --from=builder /app/apps/api/prisma ./apps/api/prisma
 COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 # Expose the port
 EXPOSE 4000
