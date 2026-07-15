@@ -8,5 +8,4 @@ coverage/
 .DS_Store
 .idea/
 .vscode/
-apps/api/prisma/migrations/
 .vercel
