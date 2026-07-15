@@ -1,4 +1,5 @@
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
+RUN apt-get update -y && apt-get install -y openssl
 
 WORKDIR /app
 
@@ -25,7 +26,8 @@ RUN npm run build --workspace=@erp-ai/shared
 RUN npm run build --workspace=@erp-ai/api
 
 # Create the final production image
-FROM node:20-alpine AS runner
+FROM node:20-slim AS runner
+RUN apt-get update -y && apt-get install -y openssl
 
 WORKDIR /app
 
