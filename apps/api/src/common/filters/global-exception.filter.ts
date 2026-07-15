@@ -37,9 +37,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     if (status >= 500) {
       this.logger.error(`[${correlationId}] ${exception instanceof Error ? exception.stack : String(exception)}`);
-      if (isProduction) {
-         message = 'Internal server error';
-      }
+      // Temporarily expose the error in production for debugging
+      message = exception instanceof Error ? exception.message : 'Internal server error';
     } else {
       this.logger.warn(`[${correlationId}] ${status} ${request.method} ${request.url} - ${JSON.stringify(message)}`);
     }
